@@ -18,7 +18,7 @@ public class MySQLUlohaDao implements UlohaDao{
  private JdbcTemplate jdbcTemplete;
     public MySQLUlohaDao() {
         MysqlDataSource dataSource= new MysqlDataSource();
-        dataSource.setUrl("jdbc>mysql//localhost/todo");
+        dataSource.setUrl("jdbc:mysql://localhost/todo");
         dataSource.setUser("Todo");
         dataSource.setPassword("ToDo");
         
