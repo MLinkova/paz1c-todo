@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class MainForm extends javax.swing.JFrame {
     
-    private PamatovyUlohaDao pamatovyUlohaDao = new PamatovyUlohaDao();
-
+   // private PamatovyUlohaDao pamatovyUlohaDao = new PamatovyUlohaDao();
+       private MySQLUlohaDao mysql= new MySQLUlohaDao();
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
-        List<Uloha> ulohy = pamatovyUlohaDao.dajVsetky();        
+        List<Uloha> ulohy = mysql.dajVsetky();        
         ulohyList.setListData(ulohy.toArray());
     }
 
@@ -38,6 +38,7 @@ public class MainForm extends javax.swing.JFrame {
         ulohyList = new javax.swing.JList();
         ulohaTextField = new javax.swing.JTextField();
         pridatButton = new javax.swing.JButton();
+        terminDatePicker = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,11 +64,15 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ulohaTextField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pridatButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ulohaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(terminDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(pridatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,8 +80,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ulohaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(terminDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pridatButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -87,11 +93,11 @@ public class MainForm extends javax.swing.JFrame {
     private void pridatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatButtonActionPerformed
         Uloha uloha = new Uloha();
         uloha.setNazov(ulohaTextField.getText());
-        uloha.setDate(new Date());
+        uloha.setDate(terminDatePicker.getDate());
         
-        pamatovyUlohaDao.pridat(uloha);
+        mysql.pridat(uloha);
         
-        List<Uloha> ulohy = pamatovyUlohaDao.dajVsetky();
+        List<Uloha> ulohy = mysql.dajVsetky();
         ulohyList.setListData(ulohy.toArray());
     }//GEN-LAST:event_pridatButtonActionPerformed
 
@@ -133,6 +139,7 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton pridatButton;
+    private org.jdesktop.swingx.JXDatePicker terminDatePicker;
     private javax.swing.JTextField ulohaTextField;
     private javax.swing.JList ulohyList;
     // End of variables declaration//GEN-END:variables
