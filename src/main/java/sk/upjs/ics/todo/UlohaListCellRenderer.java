@@ -22,7 +22,7 @@ public class UlohaListCellRenderer extends DefaultListCellRenderer{
     }
 
     private boolean jeSplnena(Uloha uloha) {
-        return true;
+       return uloha.isSplnena();
     }
    
     
