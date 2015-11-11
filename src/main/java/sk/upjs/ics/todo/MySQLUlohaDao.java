@@ -30,7 +30,7 @@ public class MySQLUlohaDao implements UlohaDao{
 
     @Override
     public void pridat(Uloha uloha) {
-    String sql = "ĂŹNSERT INTO uloha VALUES(?,?,?,?)";
+    String sql = "INSERT INTO uloha VALUES(?,?,?,?)";
     jdbcTemplete.update(sql, null,uloha.getNazov(),uloha.getDate(),uloha.isSplnena());
     }
 
@@ -47,6 +47,19 @@ public class MySQLUlohaDao implements UlohaDao{
     public void odstranit(Uloha uloha) {
        String sgl = "Delete from uloha where id= ?";
        jdbcTemplete.update(sgl,uloha.getId());
+    }
+
+    @Override
+    public void upravit(Uloha uloha) {
+        String sql="UPDATE `todo`.`uloha`\n" +
+                 " SET" +
+                 " `nazov` = ?," +
+                 " `date` = ?," +
+                 " `splnena` = ?" +
+                 " WHERE `id` = ?;";
+        
+        jdbcTemplete.update(sql,uloha.getNazov(),uloha.getDate(),uloha.isSplnena(),uloha.getId());
+        
     }
     
     
