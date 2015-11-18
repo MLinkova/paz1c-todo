@@ -19,6 +19,7 @@ public class MainForm extends javax.swing.JFrame {
    
     public MainForm() {
         initComponents();
+        setLocationRelativeTo(null);
         refresh();
     }
 

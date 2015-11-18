@@ -5,6 +5,9 @@
  */
 package sk.upjs.ics.todo;
 
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author student
@@ -24,10 +27,14 @@ public class UlohaForm extends javax.swing.JDialog {
     UlohaForm(java.awt.Frame parent, boolean modal, Uloha uloha) {
            super(parent, modal);
            initComponents();
+           
+           setLocationRelativeTo(null);
+           
            this.uloha=uloha;
            NazovTextField.setText(uloha.getNazov());
            DatumDatePicker.setDate(uloha.getDate());
            SplnenaCheckBox.setSelected(uloha.isSplnena());
+           
        
     }
 
@@ -120,8 +127,23 @@ public class UlohaForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
-       uloha.setNazov(NazovTextField.getText());
-       uloha.setDate(DatumDatePicker.getDate());
+       String nazov=NazovTextField.getText();
+       Date datum= DatumDatePicker.getDate();
+        
+        if(nazov.trim().isEmpty()){    
+           JOptionPane.showMessageDialog(this , "Vyplnte nazov");
+           return;
+       }
+         if(datum == null){
+            datum = new Date();
+        }
+        if(datum.before(new Date())){
+         JOptionPane.showMessageDialog(this , "Datum nesmie byt v minulosti!");
+           return;
+        }
+        
+       uloha.setNazov(nazov);
+       uloha.setDate(datum);
        uloha.setSplnena(SplnenaCheckBox.isSelected());
        ulohaDao.upravit(uloha);
         setVisible(false);
