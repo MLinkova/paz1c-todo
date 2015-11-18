@@ -45,6 +45,11 @@ public class MainForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         ulohyList.setCellRenderer(new UlohaListCellRenderer());
+        ulohyList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ulohyListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(ulohyList);
 
         pridatButton.setText("Pridať");
@@ -166,6 +171,15 @@ public class MainForm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_HotovoButtonActionPerformed
+
+    private void ulohyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ulohyListMouseClicked
+        if (evt.getClickCount()==2){
+        Uloha uloha= (Uloha)ulohyList.getSelectedValue();
+        UlohaForm ulohaForm= new UlohaForm(this,true,uloha);
+        ulohaForm.setVisible(true);
+        refresh();
+        }
+    }//GEN-LAST:event_ulohyListMouseClicked
 
     /**
      * @param args the command line arguments
