@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class MainForm extends javax.swing.JFrame {
     
     private UlohaDao ulohaDao= UlohaDaoFactory.INSTANCE.getUlohaDao();
+    KategoriaTableModel model = new KategoriaTableModel();
    
     public MainForm() {
         initComponents();
@@ -40,6 +41,8 @@ public class MainForm extends javax.swing.JFrame {
         terminDatePicker = new org.jdesktop.swingx.JXDatePicker();
         odstranitButton = new javax.swing.JButton();
         HotovoButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        KategorieTable = new javax.swing.JTable();
 
         jButton1.setText("jButton1");
 
@@ -74,6 +77,15 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        KategorieTable.setModel(this.model
+        );
+        KategorieTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                KategorieTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(KategorieTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,23 +93,25 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                    .addComponent(ulohaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ulohaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(terminDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(pridatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(odstranitButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HotovoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(HotovoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -108,8 +122,10 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(HotovoButton)))
                     .addComponent(ulohaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -182,6 +198,12 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ulohyListMouseClicked
 
+    private void KategorieTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KategorieTableMouseClicked
+      int vybranyindex=KategorieTable.getSelectedRow();
+      Kategoria kategoria = model.getKategoria(vybranyindex);
+      ulohyList.setListData(kategoria.getUloha().toArray());
+    }//GEN-LAST:event_KategorieTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -219,8 +241,10 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HotovoButton;
+    private javax.swing.JTable KategorieTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton odstranitButton;
     private javax.swing.JButton pridatButton;
     private org.jdesktop.swingx.JXDatePicker terminDatePicker;
